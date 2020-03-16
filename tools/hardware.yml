@@ -245,3 +245,10 @@ devices:
       - fsl,imx6q-src
   - compatible:
       - xlnx,zynq-reset
+
+  - compatible:
+      - ti,am3-scm
+    regions:
+      - index: 0
+        kernel: SCM_PPTR
+        user: true

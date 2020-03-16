@@ -22,6 +22,7 @@
 #include <arch/machine/timer.h>
 #include <arch/machine/fpu.h>
 #include <arch/machine/tlb.h>
+#include <plat/machine/devices_gen.h>
 
 /* pointer to the end of boot code/data in kernel image */
 /* need a fake array to get the pointer from the linker script */
@@ -537,6 +538,10 @@ static BOOT_CODE bool_t try_init_kernel(
 
     /* grab BKL before leaving the kernel */
     NODE_LOCK_SYS;
+
+    printf("Initing scm at vaddr: 0x%x\n", SCM_PPTR);
+    *((volatile uint32_t *)(SCM_PPTR + 0x980)) = 0x30;
+    *((volatile uint32_t *)(SCM_PPTR + 0x984)) = 0x0;
 
     printf("Booting all finished, dropped to user space\n");
 
